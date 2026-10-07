@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "heroku-postbuild": "node scripts/install-mongod.js && npm --prefix client ci && npm --prefix client run build"
+    "heroku-postbuild": "node scripts/install-mongod.js && npm --prefix client ci --include=dev && npm --prefix client run build"
   },
   "engines": {
     "node": "22.x"
