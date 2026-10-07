@@ -253,8 +253,10 @@ app.use('/api/users', requireAuth, usersRoutes);
 
 app.get('/api/config', requireAuth, (req, res) => {
   res.json({
-    mongoHost: detectPublicHost(),
+    mongoHost: IS_HEROKU ? null : detectPublicHost(),
     mongoPort: MONGO_PORT,
+    externalMongoAvailable: !IS_HEROKU,
+    deployment: IS_HEROKU ? 'heroku' : 'self-hosted',
   });
 });
 

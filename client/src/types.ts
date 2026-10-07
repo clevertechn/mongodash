@@ -14,8 +14,10 @@ export interface App {
 }
 
 export interface ServerConfig {
-  mongoHost: string;
+  mongoHost: string | null;
   mongoPort: number;
+  externalMongoAvailable?: boolean;
+  deployment?: 'heroku' | 'self-hosted';
 }
 
 export interface AppStats {

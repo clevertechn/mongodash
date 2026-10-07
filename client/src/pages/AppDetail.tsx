@@ -135,6 +135,7 @@ export default function AppDetail() {
 
   const host = serverConfig?.mongoHost ?? 'your-server-ip';
   const port = serverConfig?.mongoPort ?? 27017;
+  const externalMongoAvailable = serverConfig?.externalMongoAvailable !== false;
   const user = app.mongoUser ?? app.name;
   const pass = app.mongoPassword ?? '••••••••';
   const passDisplay = showPass ? pass : '••••••••••••••••';
@@ -232,6 +233,8 @@ export default function AppDetail() {
           />
 
           <div>
+            {externalMongoAvailable ? (
+            <div className="space-y-2">
             <div className="flex items-center justify-between mb-1.5">
               <p className="text-xs font-medium text-slate-500 uppercase tracking-wide">
                 VPS / External · <Server className="w-3 h-3 inline" /> {host}:{port}
@@ -273,6 +276,15 @@ export default function AppDetail() {
               <p className="text-amber-500/80 text-xs mt-2">
                 Set <code className="font-mono">MONGO_PUBLIC_HOST</code> environment variable to your VPS IP for accurate connection strings.
               </p>
+            )}
+            </div>
+            ) : (
+              <div className="p-4 bg-amber-950/30 border border-amber-800/50 rounded-lg">
+                <p className="text-amber-300 text-sm font-semibold">Direct MongoDB connection is not available on Heroku</p>
+                <p className="text-slate-400 text-xs mt-1.5 leading-relaxed">
+                  Heroku keeps MongoDB on 127.0.0.1 inside the dyno and does not expose port 27018 publicly. Use the HTTP API endpoint below, or deploy MongoDash on a VPS for a direct MongoDB connection.
+                </p>
+              </div>
             )}
           </div>
 
