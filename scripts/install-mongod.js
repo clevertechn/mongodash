@@ -1,7 +1,7 @@
 const path = require('path');
 const { MongoBinary } = require('mongodb-memory-server-core');
 
-const version = process.env.MONGOD_VERSION || '8.0.17';
+const version = process.env.MONGOD_VERSION || '7.0.15';
 const downloadDir = path.join(__dirname, '..', 'node_modules', '.cache', 'mongodb-binaries');
 
 MongoBinary.getPath({ version, downloadDir })
